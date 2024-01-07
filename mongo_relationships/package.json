@@ -1,0 +1,14 @@
+{
+  "name": "mongo_relationships",
+  "version": "1.0.0",
+  "description": "mongo relationships",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "tosha blackburn",
+  "license": "ISC",
+  "dependencies": {
+    "mongoose": "^8.0.3"
+  }
+}
