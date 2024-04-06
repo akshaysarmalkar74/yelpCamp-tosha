@@ -23,18 +23,37 @@ const sample = (array) => array[Math.floor(Math.random() * array.length)];
 // seed logic
 const seedDB = async () => {
 	await Campground.deleteMany({}); //delete everything
-	for (let i = 0; i < 30; i++) {
+	for (let i = 0; i < 200; i++) {
 		//make 30 of them
 		//random selection of city state, descriptors and places
 		const random1000 = Math.floor(Math.random() * 1000);
 		const price = Math.floor(Math.random() * 20) + 10;
 		const camp = new Campground({
+			//my user id - no one elses
+			author: '65d7f33d11c9fb6d878a3bb7',
 			location: `${cities[random1000].city}, ${cities[random1000].state}`, //city and state name random choosing
 			title: `${sample(descriptors)} ${sample(places)}`, //descriptors and places random choosing
-			image: 'https://source.unsplash.com/collection/483251', //random images
+			images: [
+				{
+					url: 'https://res.cloudinary.com/dxjnynp3w/image/upload/v1710211818/yelpcamp/cnuihzqyzdvu4eqhhnsb.jpg',
+					filename: 'yelpcamp/cnuihzqyzdvu4eqhhnsb',
+				},
+				{
+					url: 'https://res.cloudinary.com/dxjnynp3w/image/upload/v1710211821/yelpcamp/orh5ibme4po598sccvp1.jpg',
+					filename: 'yelpcamp/orh5ibme4po598sccvp1',
+				},
+			],
+
 			description:
 				'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ',
 			price,
+			geometry: {
+				type: 'Point',
+				coordinates: [
+					cities[random1000].longitude,
+					cities[random1000].latitude,
+				],
+			},
 		});
 
 		await camp.save(); //save
