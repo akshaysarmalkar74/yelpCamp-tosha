@@ -4,10 +4,8 @@ if (process.env.NODE_ENV !== 'production') {
 	require('dotenv').config();
 }
 
-require('dotenv').config();
-
-console.log(process.env.SECRET);
-console.log(process.env.API_KEY);
+// console.log(process.env.SECRET);
+// console.log(process.env.API_KEY);
 
 const express = require('express');
 const path = require('path');
@@ -26,12 +24,13 @@ const usersRoutes = require('./routes/users');
 const campgroundRoutes = require('./routes/campgrounds');
 const reviewRoutes = require('./routes/reviews');
 
-const dbUrl = 'mongodb://localhost:27017/yelp-camp';
-
 const expressError = require('./utilities/expressError');
 
 // method override
 const methodOverride = require('method-override');
+
+const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/yelp-camp';
+
 //localhost:27017/yelp-camp
 mongoose.connect(dbUrl, {
 	useNewUrlParser: true,
@@ -126,7 +125,7 @@ store.on('error', function () {
 const sessionConfig = {
 	store,
 	name: 'whatever you want it to be',
-	secret: 'thisshouldbeabettersecret',
+	secret,
 	resave: false,
 	saveUninitialized: true,
 	cookie: {
